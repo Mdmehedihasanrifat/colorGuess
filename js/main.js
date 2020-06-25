@@ -1,37 +1,71 @@
-let color=genraterandomColor(6);
 
-let colorpick=colorPick();
+let color=genraterandomColor(6);
+let colorpick=colorPick((color.length)-1);
 
 let h1=document.querySelector('h2');
 
+let reset=document.getElementById("reset");
 
 
 let message=document.getElementById('message');
 let displayRgB=document.getElementById("displayRgb");
 displayRgB.innerText=colorpick;
 let squares=document.querySelectorAll('.square');
-for(let i=0 ;i< squares.length;i++){
+let EasyBtn=document.getElementById("easybtn");
+let HardBtn=document.getElementById("hardbtn");
+reset.addEventListener("click",function () {
 
-  squares[i].style.backgroundColor=color[i];
+color=genraterandomColor(6);
+colorpick=colorPick(5);
 
-squares[i].addEventListener("click",function () {
 
-  let clickColor=this.style.backgroundColor;
- console.log(clickColor);
- console.log(colorpick);
-  if(clickColor===colorpick){
-    message.innerText="correct";
-    colorChange(clickColor);
-    h1.style.backgroundColor=clickColor;
-  }
-  else{
-this.style.backgroundColor="#232323";
-message.innerText="Try again";
-  }
+
+
+
+displayRgB.innerText=colorpick;
+colorChange(colorpick);
+  for(let i=0 ;i< squares.length;i++){
+
+    squares[i].style.backgroundColor=color[i];}
+  h1.style.backgroundColor="#232323";
+
 })
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+          for(let i=0 ;i< squares.length;i++){
+
+            squares[i].style.backgroundColor=color[i];
+
+          squares[i].addEventListener("click",function () {
+
+            let clickColor=this.style.backgroundColor;
+           console.log(clickColor);
+           console.log(colorpick);
+            if(clickColor===colorpick){
+              message.innerText="correct";
+              reset.innerText="play Again?"
+              colorChange(clickColor);
+              h1.style.backgroundColor=clickColor;
+            }
+          else{
+        this.style.backgroundColor="#232323";
+        message.innerText="Try again";
+          }
+        })
+
+
+        }
 
 function colorChange(color) {
 
@@ -40,18 +74,19 @@ function colorChange(color) {
     squares[i].style.backgroundColor=color;
 
 
-   colorPick();
+   colorPick(squares.length);
 
 
   }
 
+
 }
 
 
-function colorPick() {
+function colorPick(num) {
 
-  let random=Math.round(Math.random()*5);
-  console.log(random);
+  let random=Math.round(Math.random()*num);
+
   return color[random];
 }
 
@@ -79,3 +114,46 @@ let r,g,b;
 
   return "rgb("+r+", "+g+", "+b+")";
 }
+EasyBtn.addEventListener("click",function () {
+
+  EasyBtn.classList.add("selected");
+  HardBtn.classList.remove("selected");
+  color=genraterandomColor(3);
+  colorpick=colorPick((color.length)-1);
+  displayRgB.innerText=colorpick;
+  h1.style.backgroundColor="#232323";
+
+  for(let i=0;i<squares.length;i++){
+
+    if(color[i]){
+
+      squares[i].style.backgroundColor=color[i];
+    }
+    else{
+
+      squares[i].style.display="none";
+    }
+  }
+
+
+
+})
+HardBtn.addEventListener("click",function () {
+
+  HardBtn.classList.add("selected");
+  EasyBtn.classList.remove("selected");
+
+  color=genraterandomColor(6);
+  colorpick=colorPick((color.length)-1);
+  displayRgB.innerText=colorpick;
+  h1.style.backgroundColor="#232323";
+
+  for(let i=0;i<squares.length;i++){
+
+
+      squares[i].style.backgroundColor=color[i];
+    squares[i].style.display="block";
+
+  }
+
+});

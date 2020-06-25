@@ -24,9 +24,21 @@ h2{
 
 
   color: white;
+  text-align: center;
 }
 
 
 #message{
-  color: white;
+  color:black;
+}
+
+#stripe{
+
+  text-align: center;
+  background-color: white;
+}
+
+
+.selected{
+  background-color: blue;
 }
